@@ -20,5 +20,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://harvic3.github.io/Lechona/"
+  "homepage": "https://harvic3.github.io/Lechonapp/"
 }
