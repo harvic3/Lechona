@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import NotificationAlert from 'react-notification-alert';
+import SweetAlert from 'react-bootstrap-sweetalert';
 
 import ListCandidates from './Components/ListCandidates';
 import Vote from './Components/Vote';
@@ -33,9 +35,58 @@ class App extends Component {
       giveAward: false, 
       giveName: '',  
       maxVotes: 20000000, 
-      totalVotes: 0
+      totalVotes: 0,
+      alert: '',
+      theEnd: false
     }
   }
+
+  showAlert(title, message, callBack, style) {
+    this.setState({
+        alert: (
+            <SweetAlert 
+                warning
+                showCancel
+                confirmBtnText = "Sí"
+                cancelBtnText = "No"
+                confirmBtnBsStyle= {style ? style : "warning"}
+                cancelBtnBsStyle = "default"
+                customIcon = "thumbs-up.jpg"
+                title = {title}
+                onConfirm = {() => callBack()}
+                onCancel = {this.hideAlert}
+            >
+                {message}
+            </SweetAlert>
+        )            
+    });
+}
+
+  showNotify({type, message, auto}) {
+    type = type ? type : 'warning';
+    let dismiss = 7;
+    switch (type) {
+        case 'ok':
+            type = 'success';
+            break;
+        case 'bad':
+            type = 'danger';
+            if (!auto){
+                dismiss = 0;
+            }
+            break;  
+        default: 
+            type  = 'warning';
+    }
+    const options = {
+        place: "tc", 
+        message: message, 
+        type: type, 
+        icon: "now-ui-icons ui-1_bell-53",
+        autoDismiss: dismiss
+    };
+    this.refs.notificationAlert.notificationAlert(options);
+}
 
   calculateLimit = (candidates, votes) => {
     const remaining = this.calculateRemainingVotes(this.calculateTotalVotes(candidates));
@@ -149,27 +200,54 @@ class App extends Component {
   calculateRemainingVotes = (totalVotos) => {
     return this.state.maxVotes - totalVotos;
   }
+
+  checkIfWinner = (name, candidates) => {    
+    const totalVotes = this.calculateTotalVotes(candidates);
+    if (totalVotes === this.setState.maxVotes){
+      let greater = 0;
+      let winner = '';
+      for (let ind = 0; ind < candidates.length; ind++){
+        if (Number(candidates[ind].votes) > greater){
+          greater = Number(candidates[ind].votes);
+          winner = candidates[ind].name;
+        }
+      }
+      this.setState({theEnd: true});
+      if (winner === name){
+        this.showNotify({type: 'ok', message: 'Ganaste!', auto: false});
+        this.showAlert(`Hemos terminado, y el ganador fue tu candidato`, '¿Deseas reiniciar?', () => this.restart(), null);
+      }else{
+        this.showNotify({type: 'bad', message: 'Perdiste!', auto: false});        
+        this.showAlert(`Hemos terminado, y el ganador fue ${winner}`, '¿Deseas reiniciar?', () => this.restart(), null);
+      }
+    }
+  }
  
   whenVote = (name, votes) => {
     debugger;
-    const candidates = [...this.state.candidates];      
+    const candidates = [...this.state.candidates]; 
+    if (this.state.theEnd){
+      this.checkIfWinner(name, candidates);
+      return;
+    }     
     let totalVotes = this.calculateTotalVotes(candidates);
     if (totalVotes + Number(votes) > this.setState.maxVotes){
-      alert(`Ojo, la cantidad máxima de votos es de 20 millones!`);
+      this.showNotify({type: 'bad', message: '¡La cantidad máxima de votos es de 20 millones!', auto: true});
       return;
     }
     this.calculateVotes(name, votes, totalVotes, candidates);
-    totalVotes = this.calculateTotalVotes(candidates);    
-    if (totalVotes === this.setState.maxVotes){
-      //lanzar ganaste o perdiste según el candidato y reiniciar.
-      alert(`Terminó!!`);
-    }
-    console.log('Total votos: ', this.state.totalVotes);
+    this.checkIfWinner(name, candidates);
   }
   
+  restart = () => {
+    this.componentWillMount();
+  }
+
   render() {
     return (
       <div className="App">
+        <NotificationAlert ref="notificationAlert"/> 
+        {this.state.alert}
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Elecciones la Lechona</h1>
