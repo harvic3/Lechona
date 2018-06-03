@@ -32,7 +32,7 @@ class Vote extends React.Component {
 
   handleOnChangeVotes = (event) => {
     const numberVotes = event.target.value;
-    if (numberVotes >= 0 && numberVotes <= this.state.maxVotes){
+    if (numberVotes > 0 && numberVotes <= this.state.maxVotes){
       this.setState({numberVotes});      
     }else{
       alert('El máximo de votos por tanda es de 1 millón!')
@@ -71,7 +71,7 @@ class Vote extends React.Component {
               <label>Empieza a Votar</label>
             </div>
             <div>
-              <input className='input-style' maxLength="3" min="0" max="300" value={this.state.numberVotes} onChange={this.handleOnChangeVotes} placeholder="Votos reales" type="number" />
+              <input className='input-style' maxLength="7" min="1" max="1000000" value={this.state.numberVotes} onChange={this.handleOnChangeVotes} placeholder="Votos reales" type="number" />
               <button disabled={this.notNumberVote} className="btn-vote" onClick={this.handleOnPressVote} >
                 Votar
               </button>
