@@ -11,7 +11,7 @@ class Vote extends React.Component {
       nameSelected: '',
       numberVotes: 0,
       notNumberVote: false, 
-      maxVotes: 1000000
+      maxVotes: this.props.maxVotes
     };
   }
 
@@ -27,15 +27,21 @@ class Vote extends React.Component {
       return;
     }
     const votes = this.state.numberVotes;
+    if (votes === 0){
+      debugger;
+      this.props.showNotify('bad', 'No puedes votar cero!', true);      
+      return;      
+    }
     this.props.vote(name, votes);
   }
 
   handleOnChangeVotes = (event) => {
     const numberVotes = event.target.value;
-    if (numberVotes > 0 && numberVotes <= this.state.maxVotes){
+    if (numberVotes >= 0 && numberVotes <= this.state.maxVotes){
       this.setState({numberVotes});      
     }else{
-      alert('El máximo de votos por tanda es de 1 millón!')
+      debugger;
+      this.props.showNotify('bad', 'El máximo de votos por tanda es de un millón!', true);
     }
   }
 

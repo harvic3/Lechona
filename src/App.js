@@ -7,13 +7,11 @@ import SweetAlert from 'react-bootstrap-sweetalert';
 import ListCandidates from './Components/ListCandidates';
 import Vote from './Components/Vote';
 
-
 import imgVargas from './Img/waist.svg';
 import imgFajardo from './Img/sleep.svg';
 import imgPetro from './Img/avocado.svg';
 import imgCalle from './Img/dove.svg';
 import imgDuque from './Img/pig.svg';
-
 
 const candidatesObj = [
     { name: 'Vargas', image: imgVargas, votes: 0 },
@@ -29,19 +27,41 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      candidates: candidatesObj,
+      candidates: [...candidatesObj],
       jokers: jokers,
       usedJokers: [],
       giveAward: false, 
       giveName: '',  
-      maxVotes: 20000000, 
+      maxVotes: 2000000, 
+      maxAmountVote: 1000000,
       totalVotes: 0,
       alert: '',
       theEnd: false
     }
   }
 
-  showAlert(title, message, callBack, style) {
+  restart = () => {
+    console.log('Restarting...');
+    this.setState({      
+      alert: '', 
+      candidates: candidatesObj, 
+      usedJokers: [], 
+      giveAward: false, 
+      giveName: '', 
+      totalVotes: 0, 
+      jokers: jokers,       
+      theEnd: false
+    })
+    console.log('Restarted...');   
+  }
+
+  hideAlert = () => {
+    this.setState({
+        alert: ''
+    });
+  }
+
+  showAlert(title, message, callBack, icon) {
     this.setState({
         alert: (
             <SweetAlert 
@@ -49,9 +69,9 @@ class App extends Component {
                 showCancel
                 confirmBtnText = "Sí"
                 cancelBtnText = "No"
-                confirmBtnBsStyle= {style ? style : "warning"}
+                confirmBtnBsStyle = "warning"
                 cancelBtnBsStyle = "default"
-                customIcon = "thumbs-up.jpg"
+                customIcon = {icon ? icon : "thumbs-up.jpg"}
                 title = {title}
                 onConfirm = {() => callBack()}
                 onCancel = {this.hideAlert}
@@ -60,7 +80,7 @@ class App extends Component {
             </SweetAlert>
         )            
     });
-}
+  }
 
   showNotify({type, message, auto}) {
     type = type ? type : 'warning';
@@ -90,7 +110,7 @@ class App extends Component {
 
   calculateLimit = (candidates, votes) => {
     const remaining = this.calculateRemainingVotes(this.calculateTotalVotes(candidates));
-    const limit = remaining > votes * 10 ? votes * 3 : remaining;
+    const limit = remaining > votes * 2 ? votes * 2 : (votes > remaining) ? remaining : remaining - votes;
     return Number(limit);
   }
 
@@ -131,8 +151,10 @@ class App extends Component {
       for (let ind=0; ind < candidates.length; ind++){
         if (candidates[ind].name !== name && candidates[ind].name !== giveName){
           const votesToSet = Math.floor(Math.random() * limit) + 1;
-          limit = this.calculateLimit(candidates, votes);
-          candidates[ind].votes += votesToSet;
+          if (Number(limit) > 0){
+            candidates[ind].votes += votesToSet;
+            limit = this.calculateLimit(candidates, votes);            
+          }
         }      
       }
     }else{   
@@ -152,7 +174,7 @@ class App extends Component {
     }
     remainingVotes = this.calculateRemainingVotes(this.calculateTotalVotes(candidates));
     if (votesToReturn > remainingVotes){
-      votesToReturn = remainingVotes;
+      votesToReturn = (remainingVotes > 5) ? remainingVotes - 5 : (remainingVotes > 3) ? remainingVotes - 3 : remainingVotes > 1 ? remainingVotes - 1 : remainingVotes;
     }
     return votesToReturn;
   }
@@ -203,22 +225,22 @@ class App extends Component {
 
   checkIfWinner = (name, candidates) => {    
     const totalVotes = this.calculateTotalVotes(candidates);
-    if (totalVotes === this.setState.maxVotes){
+    if (Number(totalVotes) === Number(this.state.maxVotes)){
       let greater = 0;
       let winner = '';
       for (let ind = 0; ind < candidates.length; ind++){
         if (Number(candidates[ind].votes) > greater){
           greater = Number(candidates[ind].votes);
-          winner = candidates[ind].name;
+          winner = candidates[ind];
         }
       }
       this.setState({theEnd: true});
-      if (winner === name){
-        this.showNotify({type: 'ok', message: 'Ganaste!', auto: false});
-        this.showAlert(`Hemos terminado, y el ganador fue tu candidato`, '¿Deseas reiniciar?', () => this.restart(), null);
+      if (winner.name === name){
+        this.showNotify({type: 'ok', message: 'Ganaste!', auto: true});
+        this.showAlert(`Hemos terminado, y el ganador fue tu candidato`, '¿Deseas reiniciar? Presiona F5', () => this.restart(), winner.icon);
       }else{
-        this.showNotify({type: 'bad', message: 'Perdiste!', auto: false});        
-        this.showAlert(`Hemos terminado, y el ganador fue ${winner}`, '¿Deseas reiniciar?', () => this.restart(), null);
+        this.showNotify({type: 'bad', message: 'Perdiste!', auto: true});        
+        this.showAlert(`Hemos terminado, y el ganador fue ${winner.name}`, '¿Deseas reiniciar? Presiona F5', () => this.restart(), winner.icon);
       }
     }
   }
@@ -239,14 +261,14 @@ class App extends Component {
     this.checkIfWinner(name, candidates);
   }
   
-  restart = () => {
-    this.componentWillMount();
+  connectToShowNotify = (type, message , auto) => {
+    this.showNotify({type: type, message: message, auto: auto});
   }
 
   render() {
     return (
       <div className="App">
-        <NotificationAlert ref="notificationAlert"/> 
+        <NotificationAlert ref="notificationAlert"/>
         {this.state.alert}
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -254,7 +276,7 @@ class App extends Component {
         </header>
         <div className="section-app">
           <ListCandidates candidates={this.state.candidates} />
-          <Vote candidates={this.state.candidates} vote={this.whenVote} />
+          <Vote candidates={this.state.candidates} vote={this.whenVote} maxVotes={this.state.maxAmountVote} showNotify={this.connectToShowNotify} />
           <div hidden={this.state.totalVotes === 0} className="color-total" >
             <h3>Total Votos: {this.state.totalVotes} </h3>  
           </div> 
