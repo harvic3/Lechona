@@ -32,7 +32,7 @@ class App extends Component {
       usedJokers: [],
       giveAward: false, 
       giveName: '',  
-      maxVotes: 2000000, 
+      maxVotes: 20000000, 
       maxAmountVote: 1000000,
       totalVotes: 0,
       alert: '',
