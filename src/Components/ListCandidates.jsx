@@ -12,7 +12,7 @@ const arrayToComponent = candidates =>
 
 const listCandidates = ({ candidates }) => {
   return (
-    <div className="candidateList">
+    <div className="row col-12 col-sm-12 col-md-12 justify-content-center">
       {arrayToComponent(candidates)}
     </div>
   )

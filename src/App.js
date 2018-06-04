@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import NotificationAlert from 'react-notification-alert';
 import SweetAlert from 'react-bootstrap-sweetalert';
+import NumberFormat from 'react-number-format';
 
 import ListCandidates from './Components/ListCandidates';
 import Vote from './Components/Vote';
@@ -274,11 +275,15 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Elecciones la Lechona</h1>
         </header>
-        <div className="section-app">
-          <ListCandidates candidates={this.state.candidates} />
-          <Vote candidates={this.state.candidates} vote={this.whenVote} maxVotes={this.state.maxAmountVote} showNotify={this.connectToShowNotify} />
-          <div hidden={this.state.totalVotes === 0} className="color-total" >
-            <h3>Total Votos: {this.state.totalVotes} </h3>  
+        <div className="container-fluid">
+          <div className="row " >
+            <ListCandidates candidates={this.state.candidates} />
+          </div>
+          <div className="row " >
+            <Vote candidates={this.state.candidates} vote={this.whenVote} maxVotes={this.state.maxAmountVote} showNotify={this.connectToShowNotify} />
+          </div>          
+          <div hidden={this.state.totalVotes === 0} className="color-total row justify-content-center" >
+            <NumberFormat value={this.state.totalVotes} displayType={'text'} prefix={'  '} thousandSeparator={true} renderText={value => <h3>Total Votos:{value}</h3>} />             
           </div> 
         </div>                 
       </div>

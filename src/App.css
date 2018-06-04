@@ -108,3 +108,8 @@
 .footerm div { 
   display: inline-grid;
 }
+
+.container-fluid{
+  min-height: 72vh;
+  display: inline-block;
+}

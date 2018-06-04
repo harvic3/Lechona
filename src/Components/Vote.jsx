@@ -60,7 +60,7 @@ class Vote extends React.Component {
       )
     );
     return (
-        <div className='vote-controls' >
+        <div className='vote-controls col-12 justify-content-center' >
           <div>
             <label>Selecciona tu Candidato</label>
             <div>
