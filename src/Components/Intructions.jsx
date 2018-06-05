@@ -53,7 +53,7 @@ class Intructions extends React.Component {
             <p>
               Pd: los <b>números primos</b> pueden ser tu mejor amigo en ciertos momentos, pero ese momento es el que tú debes descubrir.
             </p>
-            <p>Cuando termines monta tu Print Screen en redes con el Hashtag <b>#LaVotadera</b>... Suerte con tu candidato!! :)  </p>
+            <p>Cuando termines monta tu Print Screen en redes con el Hashtag <b>#LaVotadera</b> Suerte con tu candidato!! :)  </p>
             <p>
               Esta vaina se ve mejor con la fuente oficial y <a href="http://2ttf.com/download/DVb26GzXk0k" > la descargas desde aquí!!</a> vía 2ttf
             </p>
