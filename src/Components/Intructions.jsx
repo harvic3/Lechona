@@ -16,7 +16,7 @@ class Intructions extends React.Component {
   render() {
     return (
       <div>
-        <Button className="btn-instructions" color="warning" size="lg" onClick={this.toggle}>Instrucciones</Button>        
+        <Button className="btn-instructions" color="warning" onClick={this.toggle}>Instrucciones</Button>        
         <Modal
           isOpen={this.state.showModal}
           toggle={this.toggle}
@@ -25,7 +25,7 @@ class Intructions extends React.Component {
         >
           <ModalHeader toggle={this.toggle}> <h4>Intrucciones</h4></ModalHeader>
           <ModalBody>
-          <h5>Bienvenido a <b>"#LaVotadera"</b> de tiempo!!</h5>
+          <h5>Bienvenido a <b>"La Votadera"</b> de tiempo!!</h5>
             <p>
               A continuación encontrarás las instrucciones, aunque si quieres puedes probar suerte sin leer nada.
             </p> 

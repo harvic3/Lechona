@@ -37,6 +37,7 @@ class App extends Component {
       giveName: '',  
       maxVotes: 20000000, 
       maxAmountVote: 100000,
+      votesCollection: [],
       totalVotes: 0,
       alert: '',
       theEnd: false, 
@@ -51,6 +52,7 @@ class App extends Component {
       alert: '', 
       candidates: candidatesObj, 
       usedJokers: [], 
+      votesCollection: [],
       giveAward: false, 
       giveName: '', 
       totalVotes: 0, 
@@ -107,11 +109,35 @@ class App extends Component {
         autoDismiss: dismiss
     };
     this.refs.notificationAlert.notificationAlert(options);
-}
+  }
+
+  penalize = (votes) => {
+    const votesCollection = [...this.state.votesCollection];
+    votesCollection.push(votes);
+    let count = 0;
+    votesCollection.map(vote => {      
+      if (vote === votes){
+        count += count;
+      }
+    });
+    if (count === 2){
+      let index = votesCollection.lastIndexOf(votes);
+      if (index > 0){
+        votesCollection.splice(index, 1);
+      }
+      index = votesCollection.lastIndexOf(votes);
+      if (index > 0){      
+        votesCollection.splice(index, 1);
+      }
+      this.setState({votesCollection});
+      return true;
+    }
+    return false;
+  }
 
   calculateLimit = (candidates, votes) => {
     const remaining = this.calculateRemainingVotes(this.calculateTotalVotes(candidates));
-    const limit = remaining > votes * 2 ? votes * 2 : (votes > remaining) ? remaining : remaining - votes;
+    const limit = remaining > votes * 2 ? votes * (this.penalize(votes) ? 3 : 2) : (votes > remaining) ? remaining : remaining - votes;
     return Number(limit);
   }
 
