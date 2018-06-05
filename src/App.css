@@ -19,6 +19,7 @@
 .App-header {
   background-color: #222;
   color: #ff4d00;
+  display: block;  
 }
 
 .App-title {
@@ -29,7 +30,7 @@
   display: inline-grid;
   font-size: large;
   min-height: 617px;
-  height: 74vh;
+  height: 73vh;
 }
 
 @keyframes App-logo-spin {
@@ -98,7 +99,7 @@
 
 .footer{
   background-color: #222;
-  min-height: 10vh;
+  min-height: 14vh;
   padding: 20px;
   text-align: center;
   color: #ff4d00;
@@ -110,6 +111,14 @@
 }
 
 .container-fluid{
-  min-height: 72vh;
+  min-height: 70vh;
   display: inline-block;
+}
+
+.btn-instructions{
+  position: absolute;
+  right: 10px;
+  top: 30px;
+  padding-top: 15px;
+  margin-bottom: 0;
 }

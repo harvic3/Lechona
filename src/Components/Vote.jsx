@@ -10,7 +10,6 @@ class Vote extends React.Component {
       names: [],
       nameSelected: '',
       numberVotes: 0,
-      notNumberVote: false, 
       maxVotes: this.props.maxVotes
     };
   }
@@ -41,12 +40,12 @@ class Vote extends React.Component {
       this.setState({numberVotes});      
     }else{
       debugger;
-      this.props.showNotify('bad', 'El máximo de votos por tanda es de un millón!', true);
+      this.props.showNotify('bad', 'El máximo de votos por tanda es de 100 mil!', true);
     }
   }
 
   handleOnChangeSelect = (nameSelected) => {
-    this.setState({nameSelected: nameSelected});
+    this.setState({nameSelected: nameSelected});    
   }
 
   componentWillMount() {
@@ -78,7 +77,7 @@ class Vote extends React.Component {
             </div>
             <div>
               <input className='input-style' maxLength="7" min="1" max="1000000" value={this.state.numberVotes} onChange={this.handleOnChangeVotes} placeholder="Votos reales" type="number" />
-              <button disabled={this.notNumberVote} className="btn-vote" onClick={this.handleOnPressVote} >
+              <button className="btn-vote" onClick={this.handleOnPressVote} >
                 Votar
               </button>
             </div>                      

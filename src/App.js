@@ -7,6 +7,8 @@ import NumberFormat from 'react-number-format';
 
 import ListCandidates from './Components/ListCandidates';
 import Vote from './Components/Vote';
+import Intructions from './Components/Intructions';
+import { Button } from "reactstrap";
 
 import imgVargas from './Img/waist.svg';
 import imgFajardo from './Img/sleep.svg';
@@ -18,11 +20,12 @@ const candidatesObj = [
     { name: 'Vargas', image: imgVargas, votes: 0 },
     { name: 'Fajardo', image: imgFajardo, votes: 0 },
     {name: 'Petro', image: imgPetro, votes: 0 },
-    { name: 'Calle', image: imgCalle, votes: 0 },
+    { name: 'La Calle', image: imgCalle, votes: 0 },
     { name: 'Duque', image: imgDuque, votes: 0 }
 ];
 
-const jokers = [585970, 851254, 569693, 1810, 1856, 1984];
+//const jokers = [585970, 851254, 569693, 1810, 1856, 1984];
+const jokers = [85970, 51254, 69693, 1810, 1991, 2018];
 
 class App extends Component {
   constructor(props){
@@ -34,10 +37,12 @@ class App extends Component {
       giveAward: false, 
       giveName: '',  
       maxVotes: 20000000, 
-      maxAmountVote: 1000000,
+      maxAmountVote: 100000,
       totalVotes: 0,
       alert: '',
-      theEnd: false
+      theEnd: false, 
+      showModal: true, 
+      candidateSelected: false
     }
   }
 
@@ -66,16 +71,12 @@ class App extends Component {
     this.setState({
         alert: (
             <SweetAlert 
-                warning
-                showCancel
-                confirmBtnText = "Sí"
-                cancelBtnText = "No"
-                confirmBtnBsStyle = "warning"
-                cancelBtnBsStyle = "default"
+                success
+                confirmBtnText = "De acuerdo"
+                confirmBtnBsStyle = "primary"
                 customIcon = {icon ? icon : "thumbs-up.jpg"}
                 title = {title}
-                onConfirm = {() => callBack()}
-                onCancel = {this.hideAlert}
+                onConfirm = {this.hideAlert}
             >
                 {message}
             </SweetAlert>
@@ -193,12 +194,13 @@ class App extends Component {
       debugger;
       usedJokers.push(votesToSet);
       this.setState({usedJokers});
-      if (votesToSet === 569693 && remainingVotes > 8000000){
+      if (votesToSet === 69693 && remainingVotes > 8000000){
         votesToSet = 7000000 + votesToSet;
       }else if (indexJoker >= 3 && remainingVotes > 200000){
         votesToSet = votesToSet * 100;          
       }else if (remainingVotes > 5000000){
-        votesToSet = 4000000 + votesToSet;       
+        //votesToSet = 4000000 + votesToSet; 
+        votesToSet = (votesToSet == 51254) ? 4800000 + votesToSet : 4500000 + votesToSet;   
       }
     }else if (votesToSet !== 1){
       votesToSet = this.generateVotos(name, votesToSet, remainingVotes, candidates);
@@ -264,11 +266,12 @@ class App extends Component {
   
   connectToShowNotify = (type, message , auto) => {
     this.showNotify({type: type, message: message, auto: auto});
-  }
+  } 
 
   render() {
     return (
       <div className="App">
+            <Intructions />
         <NotificationAlert ref="notificationAlert"/>
         {this.state.alert}
         <header className="App-header">
@@ -284,7 +287,7 @@ class App extends Component {
           </div>          
           <div hidden={this.state.totalVotes === 0} className="color-total row justify-content-center" >
             <NumberFormat value={this.state.totalVotes} displayType={'text'} prefix={'  '} thousandSeparator={true} renderText={value => <h3>Total Votos:{value}</h3>} />             
-          </div> 
+          </div>
         </div>                 
       </div>
     );
