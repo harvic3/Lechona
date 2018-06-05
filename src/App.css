@@ -1,8 +1,8 @@
-@font-face {  
+/* @font-face {  
   font-family: 'DuqueE14';
-  src: url('/src/Fonts/DuqueE14.ttf'), /* IE9 Compat Modes */
-       url('/src/Fonts/DuqueE14.ttf') format('truetype'); /* Modern Browsers */
-}
+  src: url('../public/Fonts/DuqueE14.ttf'), 
+       url('../public/Fonts/DuqueE14.ttf') format('truetype'); 
+} */
 
 .App {
   text-align: center;

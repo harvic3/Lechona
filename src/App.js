@@ -112,32 +112,33 @@ class App extends Component {
   }
 
   penalize = (votes) => {
+    debugger;
     const votesCollection = [...this.state.votesCollection];
     votesCollection.push(votes);
     let count = 0;
-    votesCollection.map(vote => {      
+    votesCollection.forEach(vote => {      
       if (vote === votes){
-        count += count;
+        count = count + 1;
       }
     });
     if (count === 2){
       let index = votesCollection.lastIndexOf(votes);
-      if (index > 0){
+      if (index >= 0){
         votesCollection.splice(index, 1);
       }
       index = votesCollection.lastIndexOf(votes);
-      if (index > 0){      
+      if (index >= 0){      
         votesCollection.splice(index, 1);
       }
-      this.setState({votesCollection});
       return true;
     }
+    this.setState({votesCollection});
     return false;
   }
 
-  calculateLimit = (candidates, votes) => {
+  calculateLimit = (candidates, votes, factor) => {
     const remaining = this.calculateRemainingVotes(this.calculateTotalVotes(candidates));
-    const limit = remaining > votes * 2 ? votes * (this.penalize(votes) ? 3 : 2) : (votes > remaining) ? remaining : remaining - votes;
+    const limit = remaining > votes * 2 ? Number(votes) * Number(factor): (votes > remaining) ? remaining : remaining - votes;
     return Number(limit);
   }
 
@@ -166,7 +167,8 @@ class App extends Component {
   generateVotos= (name, votes, remainingVotes, candidates) => {
     debugger;
     let votesToReturn = Number(votes);
-    let limit = this.calculateLimit(candidates, votes);
+    const factor = this.penalize(votes) ? 3 : 2;
+    let limit = this.calculateLimit(candidates, votes, Number(factor));
     let breakGive = true;
     let giveName = '';
     if (!this.state.giveAward){
@@ -180,7 +182,7 @@ class App extends Component {
           const votesToSet = Math.floor(Math.random() * limit) + 1;
           if (Number(limit) > 0){
             candidates[ind].votes += votesToSet;
-            limit = this.calculateLimit(candidates, votes);            
+            limit = this.calculateLimit(candidates, votes, Number(factor));       
           }
         }      
       }
