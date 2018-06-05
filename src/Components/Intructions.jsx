@@ -27,7 +27,7 @@ class Intructions extends React.Component {
           <ModalBody>
           <h5>Bienvenido a <b>"#LaVotadera"</b> de tiempo!!</h5>
             <p>
-              A continuación, encontrarás las instrucciones, aunque si quieres puedes probar suerte sin leer nada.
+              A continuación encontrarás las instrucciones, aunque si quieres puedes probar suerte sin leer nada.
             </p> 
             <p>
               La idea es hacer que tu candidato gane, ante ese deseo se va a interponer la <b>Fotocopiaduría Nacional</b> del estado civil de Colombia 
@@ -42,7 +42,7 @@ class Intructions extends React.Component {
             </p>
             <p>
               La aplicación cuenta con <b>6 comodines</b> de un solo uso, y son unos números especiales, tres de ellos son de 5 dígitos y están relacionados directamente con las 
-              elecciones de la primera vuelta. Los otros tres son de 4 dígitos y representan fechas especiales para <b>la democracia de Colombia</b> .
+              elecciones de la primera vuelta. Los otros tres son de 4 dígitos y representan fechas especiales para <b>la democracia de Colombia</b>.
               Los comodines funcionan mejor al principio pues te pueden ayudar a tomar la delantera y una vez se use un comodín ya no funcionará de nuevo.
             </p>
             <p>
@@ -55,7 +55,7 @@ class Intructions extends React.Component {
             </p>
             <p>Cuando termines monta tu Print Screen en redes con el Hashtag <b>#LaVotadera</b>... Suerte con tu candidato!! :)  </p>
             <p>
-              Esta vaina se ve mejor con la fuente oficial. <a href="http://2ttf.com/download/DVb26GzXk0k" > La Descargas desde aquí!!</a>
+              Esta vaina se ve mejor con la fuente oficial y <a href="http://2ttf.com/download/DVb26GzXk0k" > la descargas desde aquí!!</a> vía 2ttf
             </p>
           </ModalBody>
           <ModalFooter>
