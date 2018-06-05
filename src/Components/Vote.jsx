@@ -76,7 +76,7 @@ class Vote extends React.Component {
               <label>Empieza a Votar</label>
             </div>
             <div>
-              <input className='input-style' maxLength="7" min="1" max="1000000" value={this.state.numberVotes} onChange={this.handleOnChangeVotes} placeholder="Votos reales" type="number" />
+              <input className='input-style' maxLength="6" min="1" max={this.state.maxVotes} value={this.state.numberVotes} onChange={this.handleOnChangeVotes} placeholder="Votos reales" type="number" />
               <button className="btn-vote" onClick={this.handleOnPressVote} >
                 Votar
               </button>

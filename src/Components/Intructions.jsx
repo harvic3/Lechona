@@ -30,7 +30,7 @@ class Intructions extends React.Component {
               A continuación encontrarás las instrucciones, aunque si quieres puedes probar suerte sin leer nada.
             </p> 
             <p>
-              La idea es hacer que tu candidato gane, ante ese deseo se va a interponer la <b>Fotocopiaduría Nacional</b> del estado civil de Colombia 
+              La idea es hacer que tu candidato gane, ante ese deseo se va a interponer la <b>Fotocopiaduría Nacional</b> del Estado Civil de Colombia 
               haciendo trampas para evitar que tu candidato salga con la mayor cantidad de votos. 
             </p>
             <p>
@@ -38,11 +38,11 @@ class Intructions extends React.Component {
               presionar el botón votar. (Puedes cambiarla cuantas veces quieras)
             </p>
             <p>
-              En cada votación tuya la Fotocopiaduría le podrá asignar a los demás candidatos desde uno hasta el doble de votos de los que le asignaste a tu candidato.
+              En cada votación tuya <b>la Fotocopiaduría</b> le podrá asignar a los demás candidatos desde uno hasta el doble de votos de los que le asignaste a tu candidato.
             </p>
             <p>
-              La aplicación cuenta con <b>6 comodines</b> de un solo uso, y son unos números especiales, tres de ellos son de 5 dígitos y están relacionados directamente con las 
-              elecciones de la primera vuelta. Los otros tres son de 4 dígitos y representan fechas especiales para <b>la democracia de Colombia</b>.
+              La aplicación cuenta con <b>6 comodines de un solo uso</b>, y estos son unos números especiales, tres de ellos son de 5 dígitos y están relacionados directamente con las 
+              elecciones de la primera vuelta. Los otros tres son de 4 dígitos y representan fechas especiales para <b>La Democracia de Colombia</b>.
               Los comodines funcionan mejor al principio pues te pueden ayudar a tomar la delantera y una vez se use un comodín ya no funcionará de nuevo.
             </p>
             <p>

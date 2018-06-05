@@ -8,7 +8,6 @@ import NumberFormat from 'react-number-format';
 import ListCandidates from './Components/ListCandidates';
 import Vote from './Components/Vote';
 import Intructions from './Components/Intructions';
-import { Button } from "reactstrap";
 
 import imgVargas from './Img/waist.svg';
 import imgFajardo from './Img/sleep.svg';
@@ -200,7 +199,7 @@ class App extends Component {
         votesToSet = votesToSet * 100;          
       }else if (remainingVotes > 5000000){
         //votesToSet = 4000000 + votesToSet; 
-        votesToSet = (votesToSet == 51254) ? 4800000 + votesToSet : 4500000 + votesToSet;   
+        votesToSet = (votesToSet === 51254) ? 4800000 + votesToSet : 4500000 + votesToSet;   
       }
     }else if (votesToSet !== 1){
       votesToSet = this.generateVotos(name, votesToSet, remainingVotes, candidates);
