@@ -2,7 +2,10 @@
 
 Bienvenido, este proyecto está basado en el fraude electoral para elecciones a presidente del año 2018 en la republica de Colombia.
 
-A continuación encontrarás las instrucciones, aunque si quieres puedes probar suerte sin leer nada.
+A continuación encontrarás las instrucciones, aunque si quieres puedes probar suerte sin leer nada. 
+
+La aplicación la encuentras en el siguiente enlace: 
+<a href="https://harvic3.github.io/Lechonapp" target="_blank" >Go to play</a>
 
 La idea es hacer que tu candidato gane, ante ese deseo se va a interponer la `Fotocopiaduría Nacional` del Estado Civil de Colombia haciendo trampas para evitar que tu candidato salga con la mayor cantidad de votos.
 
