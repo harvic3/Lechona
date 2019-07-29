@@ -1,7 +1,7 @@
 {
   "name": "chanchito-lechon",
   "version": "1.1.5",
-  "private": true,
+  "private": false,
   "dependencies": {
     "bootstrap": "^4.3.1",
     "gh-pages": "^1.2.0",
@@ -23,5 +23,12 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://harvic3.github.io/Lechonapp/"
+  "homepage": "https://harvic3.github.io/Lechonapp/",
+  "description": "application inspired by the fraud of the 2018 elections in Colombia",
+  "author": "Victor Higuita <vickodev@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harvic3/Lechonapp"
+  }
 }
